@@ -38,6 +38,7 @@ public class ConfigWin extends JFrame {
 	 */
 	String[] itemarray = { "自定前缀", "日期前缀", "自定随机", "固定内容", "递增数字", "递减数字",
 			"随机数字", "空" };
+	String[] tempstr={"tungxue 0 16","0 16","薛 培 桐"," 1234567891011121314","0 16","9999999 16","6",""};//删
 	String[] itemexplanation_array = { "前缀 起始数 位数", "起始数 位数", "随机内容，用空格隔开",
 			"固定内容", "起始数 位数", "起始数 位数", "位数", "不用输入，留空" };
 	public static final int PREFIX_SELF = 0;
@@ -63,7 +64,7 @@ public class ConfigWin extends JFrame {
 	private JPanel createPanelNorth() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("表名："));
-		table_textfield = new JTextField();
+		table_textfield = new JTextField("tungxue");//删
 		table_textfield.setColumns(20);
 		panel.add(table_textfield);
 		panel.validate();
@@ -87,7 +88,7 @@ public class ConfigWin extends JFrame {
 			JLabel jlabel = new JLabel(field_array[i] + ":" + " ");
 			jlabel.setHorizontalAlignment(JTextField.RIGHT);
 			panel.add(jlabel);
-			ini_textfield[i] = new JTextField();
+			ini_textfield[i] = new JTextField(tempstr[i]);//删
 			panel.add(ini_textfield[i]);
 			itemexplanation_label[i] = new JLabel("前缀 起始数 位数");
 			panel.add(itemexplanation_label[i]);

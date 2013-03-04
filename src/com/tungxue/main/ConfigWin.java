@@ -124,7 +124,10 @@ public class ConfigWin extends JFrame {
 						.matcher(sqlnum_textfield.getText()).matches()) {
 					JOptionPane.showMessageDialog(null, "请注意：生成数目框必须输入一个正整数",
 							"提示", JOptionPane.ERROR_MESSAGE);
-				} else {
+				} else if(table_textfield.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "请注意：必须输入一个表名",
+							"提示", JOptionPane.ERROR_MESSAGE);
+				}else {
 					for (int j = 0; j < field_array.length; j++) {
 						if (!JComboBoxCon.textFieldCheckedByComboBox(
 								comboboxs_array[j], ini_textfield[j]).equals(

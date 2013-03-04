@@ -8,15 +8,16 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
 import com.tungxue.fileutil.FileADRW;
 import com.tungxue.fileutil.XMLADRW;
 import com.tungxue.wincon.JComboBoxCon;
@@ -38,7 +39,8 @@ public class ConfigWin extends JFrame {
 	 */
 	String[] itemarray = { "自定前缀", "日期前缀", "自定随机", "固定内容", "递增数字", "递减数字",
 			"随机数字", "空" };
-	String[] tempstr={"tungxue 0 16","0 16","薛 培 桐"," 1234567891011121314","0 16","9999999 16","6",""};//删
+	String[] tempstr = { "tungxue 0 16", "0 16", "薛 培 桐",
+			" 1234567891011121314", "0 16", "9999999 16", "6", "" };// 删
 	String[] itemexplanation_array = { "前缀 起始数 位数", "起始数 位数", "随机内容，用空格隔开",
 			"固定内容", "起始数 位数", "起始数 位数", "位数", "不用输入，留空" };
 	public static final int PREFIX_SELF = 0;
@@ -64,7 +66,7 @@ public class ConfigWin extends JFrame {
 	private JPanel createPanelNorth() {
 		JPanel panel = new JPanel();
 		panel.add(new JLabel("表名："));
-		table_textfield = new JTextField("tungxue");//删
+		table_textfield = new JTextField("tungxue");// 删
 		table_textfield.setColumns(20);
 		panel.add(table_textfield);
 		panel.validate();
@@ -88,7 +90,7 @@ public class ConfigWin extends JFrame {
 			JLabel jlabel = new JLabel(field_array[i] + ":" + " ");
 			jlabel.setHorizontalAlignment(JTextField.RIGHT);
 			panel.add(jlabel);
-			ini_textfield[i] = new JTextField(tempstr[i]);//删
+			ini_textfield[i] = new JTextField(tempstr[i]);// 删
 			panel.add(ini_textfield[i]);
 			itemexplanation_label[i] = new JLabel("前缀 起始数 位数");
 			panel.add(itemexplanation_label[i]);
@@ -120,16 +122,45 @@ public class ConfigWin extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String[] textfield_array = new String[field_array.length + 2];
-				for (int i = 1; i <= field_array.length; i++) {
-					textfield_array[i - 1] = ini_textfield[i - 1].getText();
+				if (!Pattern.compile("\\d+")
+						.matcher(sqlnum_textfield.getText()).matches()) {
+					JOptionPane.showMessageDialog(null, "请注意：生成数目框必须输入一个正整数",
+							"提示", JOptionPane.ERROR_MESSAGE);
+				} else {
+					for (int j = 0; j < field_array.length; j++) {
+						if (!JComboBoxCon.textFieldCheckedByComboBox(
+								comboboxs_array[j], ini_textfield[j]).equals(
+								"1")) {
+							JOptionPane.showMessageDialog(
+									null,
+									field_array[j]
+											+ "处"
+											+ JComboBoxCon
+													.textFieldCheckedByComboBox(
+															comboboxs_array[j],
+															ini_textfield[j]),
+									"提示", JOptionPane.ERROR_MESSAGE);
+							break;
+						} else if (j == field_array.length - 1) {
+							String[] textfield_array = new String[field_array.length + 2];
+							for (int i = 1; i <= field_array.length; i++) {
+								textfield_array[i - 1] = ini_textfield[i - 1]
+										.getText();
+							}
+							textfield_array[field_array.length] = table_textfield
+									.getText();// 最后第二个放的是表名
+							textfield_array[field_array.length + 1] = sqlnum_textfield
+									.getText();// 最后一个放的是要生成的sql数
+							new Thread(
+									new Producing(
+											textfield_array,
+											JComboBoxCon
+													.getComboBoxArraySelectedIndex(comboboxs_array),
+											completednum_label, filepath))
+									.start();
+						}
+					}
 				}
-				textfield_array[field_array.length] = table_textfield.getText();// 最后第二个放的是表名
-				textfield_array[field_array.length + 1] = sqlnum_textfield
-						.getText();// 最后一个放的是要生成的sql数
-				new Thread(new Producing(textfield_array, JComboBoxCon
-						.getComboBoxArraySelectedIndex(comboboxs_array),
-						completednum_label, filepath)).start();
 			}
 		});
 		panel.add(buttoneast, BorderLayout.CENTER);

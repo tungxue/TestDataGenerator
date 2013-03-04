@@ -5,9 +5,12 @@ package com.tungxue.wincon;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.regex.Pattern;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
+import com.tungxue.datautil.StringConverter;
 
 /**
  * @author tungxue
@@ -35,6 +38,125 @@ public class JComboBoxCon {
 			});
 		}
 		return comboBox_array;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static String textFieldCheckedByComboBox(JComboBox comboboxarray,
+			JTextField textfieldarray) {
+		switch (comboboxarray.getSelectedIndex()) {
+		case 0:
+			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 3) {
+				return "请注意自定前缀的基数格式为：前缀 起始数 位数(数字为正整数)";
+			} else {
+				boolean b1 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[1]).matches();
+				boolean b2 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[2]).matches();
+				if (b1 && b2) {
+					return "1";
+				} else {
+					return "请注意自定前缀的基数格式为：前缀 起始数 位数(数字为正整数)";
+				}
+			}
+		case 1:
+			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 2) {
+				return "请注意日期前缀的基数格式为：起始数 位数(数字为正整数)";
+			} else {
+				boolean b3 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[0]).matches();
+				boolean b4 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[1]).matches();
+				if (b3 && b4) {
+					return "1";
+				} else {
+					return "请注意日期前缀的基数格式为：起始数 位数(数字为正整数)";
+				}
+			}
+		case 2:
+			return "1";
+		case 3:
+			return "1";
+		case 4:
+			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 2) {
+				return "请注意递增数字的基数格式为：起始数 位数(数字为正整数)";
+			} else {
+				boolean b5 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[0]).matches();
+				boolean b6 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[1]).matches();
+				if (b5 && b6) {
+					return "1";
+				} else {
+					return "请注意递增数字的基数格式为：起始数 位数(数字为正整数)";
+				}
+			}
+		case 5:
+			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 2) {
+				return "请注意递减数字的基数格式为：起始数 位数(数字为正整数)";
+			} else {
+				boolean b7 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[0]).matches();
+				boolean b8 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[1]).matches();
+				if (b7 && b8) {
+					return "1";
+				} else {
+					return "请注意递减数字的基数格式为：起始数 位数(数字为正整数)";
+				}
+			}
+		case 6:
+			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 1) {
+				return "请注意随机数字的基数格式为：位数(数字为正整数)";
+			} else {
+				boolean b9 = Pattern
+						.compile("\\d+")
+						.matcher(
+								StringConverter
+										.stringToArrayWithTrim(textfieldarray
+												.getText())[0]).matches();
+				if (b9) {
+					return "1";
+				} else {
+					return "请注意随机数字的基数格式为：位数(数字为正整数)";
+				}
+			}
+		case 7:
+			return "1";
+		default:
+			return "1";
+		}
 	}
 
 	@SuppressWarnings("rawtypes")

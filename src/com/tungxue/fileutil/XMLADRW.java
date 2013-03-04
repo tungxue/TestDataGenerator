@@ -40,8 +40,9 @@ public class XMLADRW {
 		return doc;
 	}
 
-	public static void createXML(String path, String rootname,
+	public static void createXML(String path1, String rootname,
 			String[]... layers) {// 生成的XML文件的层数为layers个数+1。
+		String path="./log/"+path1;
 		if (FileADRW.createFile(path)) {
 			Document doc = null;
 			try {

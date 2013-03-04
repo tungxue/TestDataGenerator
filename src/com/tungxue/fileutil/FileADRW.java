@@ -21,6 +21,12 @@ public class FileADRW {
 		 * 根据路径生成文件
 		 */
 		File filename = new File(path);
+		String dirpath = path.substring(0, path.length()
+				- filename.getName().length());
+		File dirpathname = new File(dirpath);
+		if (dirpathname.exists() == false) {
+			dirpathname.mkdirs();
+		}
 		if (!filename.exists()) {
 			try {
 				filename.createNewFile();
@@ -28,7 +34,7 @@ public class FileADRW {
 				e1.printStackTrace();
 			}
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}

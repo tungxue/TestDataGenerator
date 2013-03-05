@@ -60,9 +60,12 @@ public class Producing implements Runnable {// 生产线程
 			}
 			str = str + strtemp;
 		}
-		String path = new File(fieldpath.substring(0, fieldpath.length() - 4)
-				+ "_sql_" + textfield_array[textfield_array.length - 1]
-				+ ".sql").getAbsolutePath();
+		String path = new File(fieldpath.substring(0, fieldpath.length()
+				- new File(fieldpath).getName().length())
+				+ textfield_array[textfield_array.length - 2]
+				+ "_sql_"
+				+ textfield_array[textfield_array.length - 1] + ".sql")
+				.getAbsolutePath();
 		FileADRW.createFile(path);
 		FileADRW.writeFile(str, path);
 	}

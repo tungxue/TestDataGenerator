@@ -7,7 +7,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.io.IOException;
 import java.util.regex.Pattern;
 
 import javax.swing.JButton;
@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import com.tungxue.fileutil.FileADRW;
-import com.tungxue.fileutil.XMLADRW;
 import com.tungxue.wincon.JComboBoxCon;
 import com.tungxue.wincon.JFrameCon;
 
@@ -66,7 +65,23 @@ public class ConfigWin extends JFrame {
 		panel.add(new JLabel("表名："));
 		table_textfield = new JTextField();
 		table_textfield.setColumns(20);
+		JButton button = new JButton("Mail To Me：增加新功能");
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					Runtime.getRuntime().exec(
+							"cmd /C Start mailto: tungxue@gmail.com");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		panel.add(table_textfield);
+		panel.add(button);
 		panel.validate();
 		return panel;
 	}
@@ -124,10 +139,10 @@ public class ConfigWin extends JFrame {
 						.matcher(sqlnum_textfield.getText()).matches()) {
 					JOptionPane.showMessageDialog(null, "请注意：生成数目框必须输入一个正整数",
 							"提示", JOptionPane.ERROR_MESSAGE);
-				} else if(table_textfield.getText().equals("")){
-					JOptionPane.showMessageDialog(null, "请注意：必须输入一个表名",
-							"提示", JOptionPane.ERROR_MESSAGE);
-				}else {
+				} else if (table_textfield.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "请注意：必须输入一个表名", "提示",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
 					for (int j = 0; j < field_array.length; j++) {
 						if (!JComboBoxCon.textFieldCheckedByComboBox(
 								comboboxs_array[j], ini_textfield[j]).equals(
@@ -184,10 +199,10 @@ public class ConfigWin extends JFrame {
 		// TODO Auto-generated constructor stub
 		this.filepath = filepath;
 		this.field_array = FileADRW.readFile(filepath);
-		XMLADRW.createXML(
+/*		XMLADRW.createXML(
 				new File(filepath).getName().substring(0,
 						new File(filepath).getName().length() - 4)
-						+ ".xml", "字段", field_array, itemarray);
+						+ ".xml", "字段", field_array, itemarray);*/
 		ini_textfield = new JTextField[field_array.length];
 		itemexplanation_label = new JLabel[field_array.length];
 		this.comboboxs_array = JComboBoxCon.createComboBoxArray(
@@ -204,7 +219,7 @@ public class ConfigWin extends JFrame {
 			JFrameCon.setSizeAndCentralizeMe(this, 0, 0);
 			this.pack();
 		} else {
-			JFrameCon.setSizeAndCentralizeMe(this, 600, 700);
+			JFrameCon.setSizeAndCentralizeMe(this, 800, 700);
 		}
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);// 点击窗口右上角的关闭按钮关闭窗口并退出程序
 	}

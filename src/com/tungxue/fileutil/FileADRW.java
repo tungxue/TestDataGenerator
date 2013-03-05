@@ -16,6 +16,13 @@ import java.io.InputStreamReader;
  * 
  */
 public class FileADRW {
+	public static void createDir(String path) {
+		File dirname = new File(path);
+		if (dirname.exists() == false) {
+			dirname.mkdirs();
+		}
+	}
+
 	public static boolean createFile(String path) {
 		/*
 		 * 根据路径生成文件
@@ -35,7 +42,7 @@ public class FileADRW {
 			}
 			return true;
 		} else {
-			return false;
+			return true;
 		}
 	}
 
@@ -62,7 +69,7 @@ public class FileADRW {
 			BufferedReader readTxt = new BufferedReader(isr);
 			String textLine = "";
 			while ((textLine = readTxt.readLine()) != null) {
-				str += textLine + " ";
+				str += textLine;
 			}
 			readTxt.close();
 		} catch (FileNotFoundException e) {
@@ -72,6 +79,6 @@ public class FileADRW {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return str.split(" ");
+		return str.split("\\.");
 	}
 }

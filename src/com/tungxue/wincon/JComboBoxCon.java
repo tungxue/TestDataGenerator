@@ -89,9 +89,17 @@ public class JComboBoxCon {
 				}
 			}
 		case 2:
-			return "1";
+			if(Pattern.compile("\\s*").matcher(textfieldarray.getText()).matches()){
+				return "请注意自定随机必须输入随机内容，用空格隔开";
+			}else{
+				return "1";
+			}
 		case 3:
-			return "1";
+			if(Pattern.compile("\\s*").matcher(textfieldarray.getText()).matches()){
+				return "请注意固定内容必须输入内容";
+			}else{
+				return "1";
+			}
 		case 4:
 			if (StringConverter.stringToArrayWithTrim(textfieldarray.getText()).length != 2) {
 				return "请注意递增数字的基数格式为：起始数 位数(数字为正整数)";
@@ -153,9 +161,13 @@ public class JComboBoxCon {
 				}
 			}
 		case 7:
-			return "1";
+			if(Pattern.compile("\\s*").matcher(textfieldarray.getText()).matches()){
+				return "1";
+			}else{
+				return "请注意要求置空的字段不用输入，您确定置空";
+			}
 		default:
-			return "1";
+			return "error";
 		}
 	}
 

@@ -51,7 +51,7 @@ public class StrartWin extends JFrame {
 		panel.add(new JLabel("使用帮助:"));
 		panel.add(new JLabel("1、点击“寻找字段文件”按钮将字段文件载入系统，之后点击“确定”按钮即可。"));
 		panel.add(new JLabel("2、若之前已有字段文件，则直接选择就可以了。反之，则在打开的“寻找字段文件”"));
-		panel.add(new JLabel("       窗口的文件名输入框输入文件名新建一个即可"));
+		panel.add(new JLabel("       窗口的文件名输入框输入文件名新建一个即可。"));
 		panel.add(new JLabel());
 		panel.add(new JLabel("字段文件内容格式规定："));
 		panel.add(new JLabel("1、文件名可以自定（建议为表名），但必须为txt文件。"));
